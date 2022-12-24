@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: postgres
+  password: 123321
+  host: localhost
+  pool: <%= [5, *ENV.values_at("RAILS_MAX_THREADS", "SIDEKIQ_CONCURRENCY")].map(&:to_i).max %>
+
+development:
+  <<: *default
+  database: MyGift
+
+test:
+  <<: *default
+  database: MyGift
+
+production:
+  <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
