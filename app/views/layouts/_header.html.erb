@@ -1,0 +1,18 @@
+<header class="header">
+  <span class="logo"><%= I18n.t("my_appointment") %></span>
+
+  <ul class="menu">
+    <li class="list__item"><%= link_to "#{I18n.t("home")}", root_path %></li>
+    <li class="list__item"><%= link_to "#{I18n.t("shops")}", shop_service_path %></li>
+    <li class="list__item"><%= link_to "#{I18n.t("facilities")}", facilities_service_path %></li>
+    <li class="list__item"><%= link_to "#{I18n.t("chat")}" %></li>
+    <li class="list__item"><%= link_to "#{I18n.t("profile")}" %></li>
+    <% if session[:locale].nil? %>
+      <%=link_to "AR", set_current_locale_path(locale: "ar"), remote: true, style: "font-size: 18px;" %>
+    <%elsif  session[:locale] == "en" %>
+      <%=link_to "AR", set_current_locale_path(locale: "ar"), remote: true, style: "font-size: 18px;" %>
+    <%else%>
+      <%=link_to "EN", set_current_locale_path(locale: "en"), remote: true ,style: "font-size: 18px;" %>
+    <%end%>
+  </ul>
+</header>

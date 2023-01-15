@@ -1,0 +1,66 @@
+<!--<h2>Sign up</h2>-->
+
+<%#= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%#= render "devise/shared/error_messages", resource: resource %>
+
+<!--  <div class="field">-->
+<!--    <%#= f.label :email %><br />-->
+    <%#= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<!--  </div>-->
+
+<!--  <div class="field">-->
+    <%#= f.label :password %>
+    <%# if @minimum_password_length %>
+<!--    <em>(<%#= @minimum_password_length %> characters minimum)</em>-->
+<!--    <%# end %><br />-->
+    <%#= f.password_field :password, autocomplete: "new-password" %>
+<!--  </div>-->
+
+<!--  <div class="field">-->
+<!--    <%#= f.label :password_confirmation %><br />-->
+    <%#= f.password_field :password_confirmation, autocomplete: "new-password" %>
+<!--  </div>-->
+
+<!--  <div class="actions">-->
+    <%#= f.submit "Sign up" %>
+<!--  </div>-->
+<%# end %>
+
+<%#= render "devise/shared/links" %>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create an account | Gift</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+<div class="app-container">
+<!--  <form action="#" class="sign-up">-->
+    <%= form_for(resource, as: resource_name, class: "sign-up", url: registration_path(resource_name)) do |f| %>
+    <h1 class="form__heading">Sign up</h1>
+    <p class="form__text">Sign up to create your account</p>
+    <div class="app_form">
+      <%= f.text_field :email, autofocus: true, autocomplete: "email", class: "input_textGroup", placeholder: "Email" %>
+<!--      <input type="text" name="#" id="" class="input_textGroup" placeholder="Address">-->
+<!--      <input type="text" name="#" id="" class="input_textGroup" placeholder="City">-->
+<!--      <input type="text" name="#" id="" class="input_textGroup" placeholder="Contact Number">-->
+      <%= f.password_field :password, autofocus: true, autocomplete: "password", class: "input_password-1", placeholder: "Password" %>
+<!--      <input type="password" name="" id="" class="input_password-1" placeholder="Password">-->
+      <%= f.password_field :password, autofocus: true, autocomplete: "password", class: "input_password-2", placeholder: "Confirm Password" %>
+<!--      <input type="password" name="" id="" class="input_password-2" placeholder="Confirm Password">-->
+
+<!--      <button class="btn btn_create">Signup</button>-->
+      <%= f.submit "Signup" , class: "btn btn_create" %>
+
+    </div>
+      <% end %>
+<!--  </form>-->
+</div>
+</body>
+</html>

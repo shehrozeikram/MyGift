@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+
+
+<section class="section section__individual">
+
+  <div class="individual__container">
+    <h2 class="heading__tertiary"><%= I18n.t("individuals") %></h2>
+    <div class="individual-grid">
+      <%Service.tagged_with(["individual"]).order(title: :asc).uniq.each do  |service| %>
+        <a href="<%=service_path(id: service.id) %>">
+      <div class="card card__author--1">
+        <div class="user_detail">
+          <img src="<%=service.attachments.first.url %>" alt="user image" class="user__img">
+          <div class="detail">
+            <span class="rating"><%=service.ratings %></span>
+            <span class="mpHash">MP #3133</span>
+          </div>
+        </div>
+
+
+        <div class="card__secondary">
+          <span><%=service.title %></span>
+          <span><%=service.tags.join(' | ') %></span>
+        </div>
+      </div>
+        </a>
+    <% end %>
+    </div>
+  </div>
+</section>
+<!-- Footer Section -->
+
+</body>
+</html>

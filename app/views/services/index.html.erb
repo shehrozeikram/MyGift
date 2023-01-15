@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+
+
+<!-- Header Secondary -->
+<section class="section section__header--secondary">
+  <div class="header__primary">
+    <div class="header-box">
+      <h1 class="heading-primary"><%=I18n.t("welcome_title") %></h1>
+      <a href="#" class="btn btn-sign-up"><%=I18n.t("free_trial") %></a>
+    </div>
+  </div>
+</section>
+
+<section class="section section__recommendations">
+  <div class="recommendations">
+    <h2 class="heading__tertiary"><%=I18n.t("looking_for") %></h2>
+    <div class="recommendation-grid">
+      <a href="<%= shop_service_path %>" class="card card_item-1">
+        <div class="icon__box">
+          <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+        </div>
+        <h3><%=I18n.t("shops") %></h3>
+      </a>
+      <a href="<%= facilities_service_path %>" class="card card_item-2">
+        <div class="icon__box">
+          <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+        </div>
+        <h3><%=I18n.t("facilities") %></h3>
+      </a>
+      <a href="<%= individual_service_path %>" class="card card_item-3">
+        <div class="icon__box">
+          <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+        </div>
+        <h3><%=I18n.t("individuals") %></h3>
+      </a>
+      <a href="<%= appartments_service_path %>" class="card card_item-4">
+        <div class="icon__box">
+          <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+        </div>
+        <h3><%=I18n.t("appartments") %></h3>
+      </a>
+    </div>
+  </div>
+</section>
+<section class="section section__appointments">
+  <div class="appointments__container">
+    <h2 class="heading__tertiary"><%=I18n.t("upcomming_appointments") %></h2>
+    <div class="appointments">
+      <div class="card card__item--1">
+        <span class="card_heading">Alhabeeb Hospital</span>
+        <div class="card_detail">
+          <h3>Dr. Habeeb Ahmad</h3>
+          <span class="date">03-03-2022</span>
+        </div>
+      </div>
+      <div class="card card__item--2">
+        <span class="card_heading">Oku</span>
+        <div class="card_detail">
+          <h3>Japanees restourant</h3>
+          <span class="date">03-03-2022</span>
+        </div>
+      </div>
+      <div class="card card__item--3">
+        <span class="card_heading">Tuck Shop</span>
+        <div class="card_detail">
+          <h3>Pizza Hut</h3>
+          <span class="date">03-03-2022</span>
+        </div>
+      </div>
+      <div class="card card__item--4">
+        <span class="card_heading">Auto Mobile</span>
+        <div class="card_detail">
+          <h3>Car auto service</h3>
+          <span class="date">03-03-2022</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section section__recentlyAdded">
+  <div class="recentAdded__container">
+    <h2 class="heading__tertiary"><%=I18n.t("recently_added") %></h2>
+    <div class="recent-grid-fx">
+      <div class="card card-grid-fx-1">
+        <img src="/images/hospital.jpg" alt="Hospital Image" class="card__img">
+        <div class="card-grid-fx-detail">
+          <h3>Oku</h3>
+          <p>Alhabeeb Hospital</p>
+        </div>
+      </div>
+      <div class="card card-grid-fx-2">
+        <img src="/images/beauty.jpg" alt="Hospital Image" class="card__img">
+        <div class="card-grid-fx-detail">
+          <h3>Beauty shop</h3>
+          <p>Beauty parolor</p>
+        </div>
+      </div>
+      <div class="card card-grid-fx-3">
+        <img src="/images/hospital.jpg" alt="Hospital Image" class="card__img">
+        <div class="card-grid-fx-detail">
+          <h3>Auto service</h3>
+          <p>Car rental service</p>
+        </div>
+      </div>
+      <div class="card card-grid-fx-4">
+        <img src="/images/hospital.jpg" alt="Hospital Image" class="card__img">
+        <div class="card-grid-fx-detail">
+          <h3>House</h3>
+          <p>Appartments</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer Section -->
+
+</body>
+</html>

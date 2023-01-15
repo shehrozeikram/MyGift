@@ -1,0 +1,11 @@
+<div class="grid-time-fx">
+  <h3>Time</h3>
+  <div class="grid-time">
+    <%Service.time_slot(service.service_provider_id, day).each do |time| %>
+    <div class="grid-time-item">
+      <span><%=time %></span>
+      <input type="checkbox" name="time_slot" value="<%=time %>" class="time_slot" onclick="select_time(this)">
+    </div>
+      <%end%>
+  </div>
+</div>

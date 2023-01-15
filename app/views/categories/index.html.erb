@@ -1,0 +1,47 @@
+
+<header class="header">
+
+
+  <!-- header Story -->
+  <div class="header__content">
+    <h1 class="heading--primary">
+      <span class="heading-secondary"><%=I18n.t('welcome_title') %>
+      </span>
+      <span class="heading-main"><%=I18n.t('welcome_slogan') %>
+      </span>
+    </h1>
+
+    <a href="#" class="btn-signup"><%=I18n.t('sign_up_free') %></a>
+    <a href="#categories" class="btn-signup mv-btn"><%=I18n.t('categories') %></a>
+  </div>
+</header>
+
+
+<section class="section section__categories" id="categories">
+  <h1 class="heading__tertiary"><%=I18n.t('categories') %></h1>
+  <div class="container">
+
+    <div class="categories">
+      <% @categories.each do |category| %>
+      <a href="/categories/<%= category.id %>" class="card_cat card_cat--1">
+        <img src="<%= category.attachment %>" alt="watch Image" class="card__img">
+        <div class="cat_heading-container">
+          <div class="cat__heading limited"><%= category.title %></div>
+        </div>
+      </a>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<style>
+    .limited {
+        display: inline-block;
+        width: 180px;
+        white-space: nowrap;
+        overflow: hidden !important;
+        text-overflow: ellipsis;
+    }
+</style>
+
+

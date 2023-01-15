@@ -1,0 +1,143 @@
+
+<body>
+
+<!-- Cart  -->
+<section class="section section__profile">
+  <div class="profile__container">
+    <div class="profile__left">
+      <!-- <h3>Profile</h3> -->
+      <img src="<%= Product.last.attachments.first %>" alt="User Avatar" class="profile__img">
+      <div class="profile__author">
+        <span class="author">Zahid Hanif</span>
+      </div>
+    </div>
+
+    <div class="profile__actions">
+      <a href="#" class="btn btn__wallet">
+        <span class="btn__title"><%= I18n.t('My_Wallet') %></span>
+        <span class="ammount">$5999</span>
+      </a>
+      <a href="#" class="btn btn__buy"><%= I18n.t('Buy_Credit') %></a>
+      <a href="#" class="btn btn__share"><%= I18n.t('Share_Credit') %></a>
+    </div>
+  </div>
+
+  <div class="orders__methods">
+    <div class="orders__container">
+      <h3 class="orders"><%= I18n.t('My_Orders') %></h3>
+      <div class="order__grid">
+        <div class="order order_1">
+          <a href="#" class="order__link">
+            <i class="fa fa-money" aria-hidden="true"></i>
+
+          </a>
+          <span><%= I18n.t('To_Pay') %></span>
+        </div>
+        <div class="order order_2">
+          <a href="#" class="order__link">
+            <i class="fa fa-ship" aria-hidden="true"></i>
+
+          </a>
+          <span><%= I18n.t('To_Ship') %></span>
+        </div>
+        <div class="order order_3">
+          <a href="#" class="order__link">
+            <i class="fa fa-handshake-o" aria-hidden="true"></i>
+          </a>
+          <span><%= I18n.t('To_receive') %></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="user__actions">
+    <div class="user__actions--container">
+      <a href="/cart" class="card__btn_grid">
+        <div class="btn_card">
+                            <span><i class="fa fa-credit-card" aria-hidden="true"></i>
+                            </span>
+          <span class="title"><%= I18n.t('My_Carts') %></span>
+        </div>
+
+        <span><i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </span>
+      </a>
+
+      <a href="/users/my_orders" class="card__btn_grid">
+        <div class="btn_card">
+                            <span><i class="fa fa-shopping-cart" aria-hidden="true"></i>
+
+                            </span>
+          <span class="title"><%= I18n.t('My_Orders') %></span>
+        </div>
+
+        <span><i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </span>
+      </a>
+
+      <a href='/users/<%=current_web_user.id %>/edit_profile' class="card__btn_grid">
+        <div class="btn_card">
+                            <span>
+                                <i class="fa fa-user-o" aria-hidden="true"></i>
+
+                            </span>
+          <span class="title"><%= I18n.t('Edit_Profile') %></span>
+        </div>
+
+        <span><i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Nav Model -->
+<div class="nav__model">
+  <div class="nav_model-container">
+    <!-- <form action="#" class="form__search">
+        <button class="search__btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+        <input type="search" name="search" id="search" placeholder="Search for Gift">
+    </form> -->
+
+    <form action="#" class="model_search">
+      <input type="text" placeholder="Serach" class="inputSearch">
+      <button type="submit" class="model-search-btn"><i class="fa fa-search"></i></button>
+    </form>
+    <ul class="model_menus">
+      <li class="model_item"><a href="#" class="model_link">Home</a></li>
+      <li class="model_item"><a href="#" class="model_link">Products</a></li>
+      <li class="model_item"><a href="#" class="model_link">Cart</a></li>
+      <li class="model_item"><a href="#" class="model_link">Sign In</a></li>
+    </ul>
+
+    <button class="closeModelMenus"><i class="fa fa-remove"></i></button>
+  </div>
+</div>
+<!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+<script>
+    $(document).ready(function() {
+    const minus = $('.quantity__minus');
+    const plus = $('.quantity__plus');
+    const input = $('.quantity__input');
+    minus.click(function(e) {
+        e.preventDefault();
+        var value = input.val();
+        if (value > 1) {
+        value--;
+        }
+        input.val(value);
+    });
+
+    plus.click(function(e) {
+        e.preventDefault();
+        var value = input.val();
+        value++;
+        input.val(value);
+    })
+    });
+</script> -->
+<script src="./script.js"></script>
+</body>
+</html>

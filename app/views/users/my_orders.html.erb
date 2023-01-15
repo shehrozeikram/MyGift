@@ -1,0 +1,23 @@
+<!-- Cart  -->
+<section class="section order__section">
+  <h3 class="profile__heading"><%= I18n.t('my_orders') %></h3>
+ <%@my_orders.each do |order| %>
+  <div class="order__container">
+    <div class="order order-box__1">
+      <img src="<%= order.product.attachments.first %>"  alt="<%= I18n.locale.to_s == "ar" ? order.product.ar_title : order.product.title%>" class="order__img">
+      <div class="order__item__detail">
+        <span class="order__title"><%=  I18n.locale.to_s == "ar" ? order.product.ar_title : order.product.title%></span>
+        <span class="amount">$<%= order.product.price %></span>
+      </div>
+    </div>
+    <div class="order order-box__2">
+                    <span class="order__date">
+                        <strong class="date_ship"><%= I18n.t('Ordering_Date') %> : ( 23-03-222 )</strong>
+                        <strong class="shiping__date"><%= I18n.t('Ordering_Status') %>: ( In progress )</strong>
+                    </span>
+
+      <a href="#" class="continue__shoping"><%= I18n.t('continue_shopping') %></a>
+    </div>
+  </div>
+  <%end%>
+</section>

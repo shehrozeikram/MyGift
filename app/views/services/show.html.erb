@@ -1,0 +1,73 @@
+<section class="section section-book">
+  <div class="book-appointment">
+    <div class="book-appointment-grid-fx">
+      <div class="grid-item grid-item-1">
+        <img src="<%= @service.attachments.first.url %>" alt="hospital Image" class="grid-image">
+        <div class="detail">
+          <h3><%= @service.title %></h3>
+          <h4>Owner:<%= @service.service_provider.first_name.capitalize %></h4>
+        </div>
+      </div>
+
+      <div class="select__group">
+        <h3>Description: <%= @service.description %></h3>
+      </div>
+    </div>
+    <form action="/service/book_appointment" method="post">
+      <div class="grid-date-time-fx">
+        <h3>Dates:</h3>
+        <div class="grid-date-time-container">
+
+          <% Service.available_days(@service.service_provider_id).each do |slot| %>
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+            <%= hidden_field_tag :service_id, @service.id -%>
+
+
+            <div class="grid-item ">
+              <span><%= slot %></span>
+              <input type="checkbox" name="day_slot" value="<%= slot %>" class="day_slot" onclick="select_day(this)">
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div id="time_slots_box">
+        <h4 style="text-align: center">Please choose day first!</h4>
+      </div>
+
+
+      <div class="button--grid">
+        <button type="submit" class="btn-grid-btn">Submit</button>
+      </div>
+    </form>
+  </div>
+</section>
+<script>
+    function select_time(c) {
+        console.log("select_day")
+        $(".time_slot").prop("checked", false)
+        $(this).prop("checked", true)
+        $(c).prop("checked", true)
+    }
+    function select_day(c) {
+        console.log("select_day")
+        $(".day_slot").prop("checked", false)
+        $(this).prop("checked", true)
+        $(c).prop("checked", true)
+        var day = $(c).val();
+        // http://localhost:3000//service/get_time_slots
+        $.ajax({
+            type: "GET",
+            url: "/service/get_time_slots",
+            data: {day: day, id: '<%=@service.id %>' },
+            cache: false,
+            success: function(data){
+                console.log("appending slots")
+                $("#time_slots_box").html(data.data)
+                // alert(data.data)
+            },
+            error: function(data){
+                window.location.href = '/users/sign_in'
+            }
+        });
+    }
+</script>

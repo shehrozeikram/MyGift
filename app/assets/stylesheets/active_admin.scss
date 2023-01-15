@@ -1,0 +1,111 @@
+// SASS variable overrides must be declared before loading up Active Admin's styles.
+//
+// To view the variables that Active Admin provides, take a look at
+// `app/assets/stylesheets/active_admin/mixins/_variables.scss` in the
+// Active Admin source.
+//
+// For example, to change the sidebar width:
+// $sidebar-width: 242px;
+
+// Active Admin's got SASS!
+@import "active_admin/mixins";
+@import "active_admin/base";
+@import "wigu/active_admin_theme";
+
+// Overriding any non-variable SASS must be done after the fact.
+// For example, to change the default status-tag color:
+//
+//   .status_tag { background: #6090DB; }
+
+a:focus {
+  outline: none;
+}
+#header h1 img {
+  width: 88px;
+  height: 76px;
+}
+#wrapper #header ul.tabs > li > a {
+  color: #b63849;
+}
+#wrapper #header ul.tabs > li.current > a, #wrapper #header ul.tabs > li:hover > a {
+  background-color: #36beb5;
+  color: white;
+}
+#wrapper .sidebar_section.panel,
+#wrapper #title_bar #titlebar_right .action_item a {
+  background-color: #36beb5;
+  color: white;
+}
+#wrapper #title_bar {
+  background-color: #ce4154;
+}
+
+#wrapper .sidebar_section.panel .filter_form_field label {
+  color: #ffffff;
+}
+#wrapper .sidebar_section.panel > h3 ,form input[type=submit], a.button, a.button:link, a.button:visited, fieldset.actions > ol > li.button_action > button {
+  background-color: #36beb5;
+  color: white;
+}
+#wrapper #title_bar , form input[type=submit], a.button, a.button:link, a.button:visited, fieldset.actions > ol > li.button_action > button {
+  background-color: #36beb5;
+  color: white;
+}
+#wrapper #title_bar {
+  border-bottom: 3px solid  #ce4154;
+}
+//#wrapper .sidebar_section.panel, #wrapper #title_bar #titlebar_right .action_item a {
+//  background-color: #ce4154;
+//  color: white;
+//}
+#wrapper #title_bar #titlebar_right .action_item a {
+  background-color: #ce4154;
+  color: white;
+}
+#wrapper #title_bar #titlebar_left span.breadcrumb a, #wrapper #title_bar #titlebar_left span.breadcrumb span {
+  color: #ffffff !important;
+}
+#wrapper #header {
+  background-color: #ffffff;
+}
+
+
+#wrapper #active_admin_content div.table_tools div.batch_actions_selector a {
+  background-color: #36beb5;
+  color: white;
+}
+#wrapper #active_admin_content div.table_tools div.batch_actions_selector a:hover {
+  background-color: #ce4154;
+  color: white;
+}
+.action_item a:hover{
+  background-color: #ce4154;
+  color: white;
+}
+
+
+body.logged_out #content_wrapper #active_admin_content #login h2 {
+  background-color: #36beb5;
+}
+
+body.logged_out #content_wrapper #active_admin_content {
+  color: white !important;
+  background-color: #36beb5 !important;
+}
+
+
+body.logged_out #content_wrapper #active_admin_content #login h2 {
+  background-color: #36beb5 !important;
+}
+
+.panel > h3 {
+  background-color: #36beb5;
+}
+body.logged_out #content_wrapper #active_admin_content #login form fieldset ol li label {
+  color: #ffffff !important;
+}
+
+form fieldset ol>li label {
+  color: #8494a8 !important;
+  display: block;
+}

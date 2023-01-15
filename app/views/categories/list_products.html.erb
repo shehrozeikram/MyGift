@@ -1,0 +1,44 @@
+
+<header class="header">
+  <!-- header Story -->
+  <div class="header__content">
+    <h1 class="heading--primary">
+      <span class="heading-secondary"><%=@products.first.category.title rescue ""%></span>
+      <span class="heading-main"><%= I18n.t('welcome_pr_slogan') %></span>
+    </h1>
+
+    <a href="#" class="btn-signup"><%= I18n.t('sign_up_free') %></a>
+    <a href="#productSection" class="btn-signup mv-btn"><%= I18n.t('all_products') %></a>
+  </div>
+</header>
+
+
+
+<!-- Section Products -->
+<section class="section section__categories" id="productSection">
+  <h1 class="heading__tertiary"><%= I18n.t('our_products') %></h1>
+  <div class="container">
+
+    <div class="categories">
+      <% @products.each do |product| %>
+        <a href="/products/<%= product.id %>" class="cat__heading">
+          <div class="card_cat card_cat--1">
+            <img src="<%= product.attachments.first %>" alt="watch Image" class="card__img">
+            <div class="cat_heading-container">
+              <div class="cat__heading limited"><%= product.title %></div>
+            </div>
+          </div>
+        </a>
+      <% end %>
+    </div>
+  </div>
+</section>
+<style>
+    .limited {
+        display: inline-block;
+        width: 180px;
+        white-space: nowrap;
+        overflow: hidden !important;
+        text-overflow: ellipsis;
+    }
+</style>

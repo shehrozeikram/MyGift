@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+
+<!-- section Shops -->
+<section class="section section__shops">
+  <div class="shops__container">
+    <h2 class="heading__tertiary"><%= I18n.t("facilities") %></h2>
+    <div class="shops__tabs">
+      <a href="#allShops" data-tab="allShops" class="b-nav-tab active"><%= I18n.t("all") %></a>
+      <a href="#hospitals" data-tab="hospitals" class="b-nav-tab "><%= I18n.t("hospitals") %></a>
+      <a href="#companies" data-tab="companies" class="b-nav-tab"><%= I18n.t("companies") %></a>
+      <a href="#manisteries" data-tab="manisteries" class="b-nav-tab"><%= I18n.t("ministeries") %></a>
+
+
+      <div id="allShops" class="b-tab active">
+        <div class="grid-card-fx">
+          <%Service.tagged_with(["facilities"]).order(title: :asc).uniq.each do  |service| %>
+            <a href="<%=service_path(id: service.id) %>">
+            <div class="card card__item-1">
+            <div class="card__top">
+              <img src="<%=service.attachments.first.url %>" alt="Beauty" class="card__img">
+              <div class="ratings"><span class="icon_box"><i class="fa fa-star-o" aria-hidden="true"></i>
+                                </span> <span class="rating-content"><%=service.ratings %></span></div>
+            </div>
+            <div class="card__bottom">
+              <h3 class="card__title"><%=service.title %></h3>
+              <p><%=service.tags.join(' | ') %></p>
+            </div>
+          </div>
+            </a>
+            <% end %>
+
+
+
+        </div>
+      </div>
+    </div>
+
+
+    <div id="hospitals" class="b-tab">
+      <div class="grid-card-fx">
+        <%Service.tagged_with(["hospital"]).order(title: :asc).uniq.each do  |service| %>
+        <div class="card card__item-1">
+          <div class="card__top">
+            <img src="<%=service.attachments.first.url %>" alt="Beauty" class="card__img">
+            <div class="ratings"><span class="icon_box"><i class="fa fa-star-o" aria-hidden="true"></i>
+                                </span> <span class="rating-content"><%=service.ratings %></span></div>
+          </div>
+          <div class="card__bottom">
+            <h3 class="card__title"><%=service.title %></h3>
+            <p><%=service.tags.join(' | ') %></p>
+          </div>
+        </div>
+          <% end %>
+
+
+      </div>
+    </div>
+
+
+    <div id="companies" class="b-tab">
+      <div class="grid-card-fx">
+        <%Service.tagged_with(["company"]).order(title: :asc).uniq.each do  |service| %>
+        <div class="card card__item-1">
+          <div class="card__top">
+            <img src="<%=service.attachments.first.url %>" alt="Beauty" class="card__img">
+            <div class="ratings"><span class="icon_box"><i class="fa fa-star-o" aria-hidden="true"></i>
+                                </span> <span class="rating-content"><%=service.ratings %></span></div>
+          </div>
+          <div class="card__bottom">
+            <h3 class="card__title"><%=service.title %></h3>
+            <p><%=service.tags.join(' | ') %></p>
+          </div>
+        </div>
+          <% end %>
+      </div>
+    </div>
+
+
+    <div id="manisteries" class="b-tab">
+      <div class="grid-card-fx">
+        <%Service.tagged_with(["ministry"]).order(title: :asc).uniq.each do  |service| %>
+        <div class="card card__item-1">
+          <div class="card__top">
+            <img src="<%=service.attachments.first.url %>" alt="Beauty" class="card__img">
+            <div class="ratings"><span class="icon_box"><i class="fa fa-star-o" aria-hidden="true"></i>
+                                </span> <span class="rating-content"><%=service.ratings %></span></div>
+          </div>
+          <div class="card__bottom">
+            <h3 class="card__title"><%=service.title %></h3>
+            <p><%=service.tags.join(' | ') %></p>
+          </div>
+        </div>
+          <% end %>
+
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+
+<!-- Footer Section -->
+
+
+
+<script>
+
+
+    function Tabs() {
+        var bindAll = function() {
+            var menuElements = document.querySelectorAll('[data-tab]');
+            for(var i = 0; i < menuElements.length ; i++) {
+                menuElements[i].addEventListener('click', change, false);
+            }
+        }
+
+        var clear = function() {
+            var menuElements = document.querySelectorAll('[data-tab]');
+            for(var i = 0; i < menuElements.length ; i++) {
+                menuElements[i].classList.remove('active');
+                var id = menuElements[i].getAttribute('data-tab');
+                document.getElementById(id).classList.remove('active');
+            }
+        }
+
+        var change = function(e) {
+            clear();
+            e.target.classList.add('active');
+            var id = e.currentTarget.getAttribute('data-tab');
+            document.getElementById(id).classList.add('active');
+        }
+
+        bindAll();
+    }
+
+    var connectTabs = new Tabs();
+
+</script>
+</body>
+</html>

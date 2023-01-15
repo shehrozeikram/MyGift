@@ -1,0 +1,5 @@
+{
+  user: @resource,
+  locale: I18n.locale.to_s,
+  must_change_password: @resource.must_change_password
+}

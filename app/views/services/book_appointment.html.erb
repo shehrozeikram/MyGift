@@ -1,0 +1,25 @@
+<% %>
+<section class="section section__qr">
+  <div class="section_qr-container">
+    <h3>Done</h3>
+    <div class="qr-grid">
+      <div class="qr-item qr-item--1">
+         <%=@qr_code.html_safe  %>
+<!--        <img src="./images/qr-code.png" alt="QR code" class="qr-img">-->
+        <p>Please present the qr code at your point</p>
+      </div>
+      <div class="qr-item qr-item--2">
+        <div class="card-item">
+          <span><%=@service.title %></span>
+        Day:   <span><%=@appointment.day_slot %></span>
+        Time:   <span><%=@appointment.time_slot %></span>
+        </div>
+
+        <div class="card__icons">
+          <i class="fa fa-map-marker" aria-hidden="true"></i>
+          <i class="fa fa-pencil"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
