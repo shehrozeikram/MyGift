@@ -54,6 +54,7 @@ module Api
         end
       end
 
+
       private
 
       def user
