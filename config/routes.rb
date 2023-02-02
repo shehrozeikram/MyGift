@@ -55,7 +55,11 @@ Rails.application.routes.draw do
       resource :services do
         get '/show_service', to: 'services#show_service'
         get '/fetch_services', to: 'services#fetch_services'
+      end
 
+      resource :cards do
+        get '/show_card', to: 'cards#show_card'
+        get '/fetch_cards', to: 'cards#fetch_cards'
       end
 
       resource :business do
