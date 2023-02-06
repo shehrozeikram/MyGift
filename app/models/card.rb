@@ -13,5 +13,6 @@ class Card < ApplicationRecord
   mount_uploaders :attachments, AttachmentUploader
   serialize :attachments, JSON
 
+  has_many :gifts
 
 end

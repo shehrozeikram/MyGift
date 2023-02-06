@@ -5,54 +5,32 @@ module Api
       skip_before_action :authenticate_user!
       #Search List
 
-      def fetch_services #For product search
+
+      def contact_us
         begin
-        if params[:q].present?
-          @services = Service.where("LOWER(title) LIKE LOWER(?)", "%#{params[:q]}%")
-        elsif params[:tags]
-          @services =Service.tagged_with(params[:tags]).order(title: :asc)
-        else
-          @services =Service.all.order(title: :asc)
-        end
-
-        if I18n.locale.to_s == "ar"
-          @services.each do |pr|
-            pr.description = pr.ar_description
-            pr.title = pr.ar_title
+          unless contact_params.present?
+            return display_error('All params are not present')
           end
-        end
 
-        render json: {api_status: true, locale: I18n.locale.to_s, services: @services}
+          if contact_params.present?
+            @contact_us = Contact.new(contact_params)
+            if  @contact_us.save!
+              render json: {api_status: true, locale: I18n.locale.to_s,contact_us: @contact_us}
+            end
+          else
+            render json: {api_status: false, locale: I18n.locale.to_s, error: @contact_us.errors}
+          end
         rescue => e
-          render json: {api_status: false, locale: I18n.locale.to_s, services: @services}
+          render json: {api_status: false, locale: I18n.locale.to_s, error: @contact_us.errors.full_messages}
         end
       end
 
-      def show_service
-        begin
-          unless params[:id].present?
-            return  display_error("Service ID is missing!")
-          end
-          if params[:id].present?
-            @service = Service.find(params[:id])
-            return display_error("Service Not  Present ")  unless @service.present?
-          end
-
-          if I18n.locale.to_s == "ar"
-            @service.description = @service.ar_description
-            @service.title = @service.ar_title
-          end
-
-          # @service = @service.to_json
-
-          return render json: {api_status: true, locale: I18n.locale.to_s, service: @service }
-        rescue => e
-          return display_error("Something Went Wrong!")
-        end
-      end
 
       private
 
+      def contact_params
+        params.permit( :name, :email, :phone, :message, :user_id )
+      end
         def user
         @user ||= current_user
       end

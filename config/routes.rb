@@ -53,14 +53,16 @@ Rails.application.routes.draw do
       end
 
       resource :services do
-        get '/show_service', to: 'services#show_service'
-        get '/fetch_services', to: 'services#fetch_services'
+        post '/contact_us', to: 'services#contact_us'
       end
 
       resource :cards do
-        get '/show_card', to: 'cards#show_card'
         get '/fetch_cards', to: 'cards#fetch_cards'
+        post '/create_gift', to: 'cards#create_gift'
+        get '/claim_gift', to: 'cards#claim_gift'
+
       end
+
 
       resource :business do
         get '/show_business', to: 'businesses#show_business'
