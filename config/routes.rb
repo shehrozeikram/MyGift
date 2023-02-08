@@ -52,14 +52,19 @@ Rails.application.routes.draw do
         get '/fetch_ads', to: 'ads#ads'
       end
 
-      resource :services do
-        post '/contact_us', to: 'services#contact_us'
+      resource :stores do
+        get '/fetch_stores', to: 'stores#fetch_stores'
+        post '/create_store_payment', to: 'stores#create_store_payment'
+        post '/contact_us', to: 'stores#contact_us'
       end
 
       resource :cards do
         get '/fetch_cards', to: 'cards#fetch_cards'
         post '/create_gift', to: 'cards#create_gift'
-        get '/claim_gift', to: 'cards#claim_gift'
+        put '/claim_reward', to: 'cards#claim_reward'
+        get '/fetch_transactions', to: 'cards#fetch_transactions'
+        get '/fetch_rewards', to: 'cards#fetch_rewards'
+        get '/fetch_claim_rewards', to: 'cards#fetch_claim_rewards'
 
       end
 

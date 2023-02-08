@@ -89,24 +89,89 @@ module Api
         end
       end
 
-      def claim_gift
+      def fetch_claim_rewards
         begin
-          if params[:id].present?
-            @claim_gift = Gift.where(id: params[:id])
-            @claim_gift.update("claim_gift": true )
+          if params[:user_id].present?
+            @rewards  = Reward.where(receiver_id: params[:user_id]).where(claim: false)
           else
-            @claim_gift =Gift.all
+            @rewards =Reward.all
           end
+
           if I18n.locale.to_s == "ar"
-            @claim_gift.each do |pr|
+            @rewards.each do |pr|
               pr.description = pr.ar_description
               pr.title = pr.ar_title
             end
           end
 
-          render json: {api_status: true, locale: I18n.locale.to_s, claim_gift: @claim_gift}
+          render json: {api_status: true, locale: I18n.locale.to_s, claim_rewards: @rewards.as_json( :include => [:user] )}
         rescue => e
-          render json: {api_status: false, locale: I18n.locale.to_s}
+          render json: {api_status: false, locale: I18n.locale.to_s, claim_rewards: @rewards}
+        end
+      end
+
+
+      def claim_reward
+        begin
+          if params[:reward_id].present?
+            @claim_reward = Reward.where(id: params[:reward_id])
+            @claim_reward.update(claim: true )
+          else
+            @claim_reward =Reward.all
+          end
+          if I18n.locale.to_s == "ar"
+            @claim_reward.each do |pr|
+              pr.description = pr.ar_description
+              pr.title = pr.ar_title
+            end
+          end
+
+          render json: {api_status: true, locale: I18n.locale.to_s, claim_reward: @claim_reward.as_json( :include => [:user] )}
+        rescue => e
+          render json: {api_status: false, locale: I18n.locale.to_s, errors: @claim_reward.errors }
+        end
+      end
+
+      def fetch_transactions #For product search
+        begin
+          if params[:user_id].present?
+            @transactions  = Transaction.where(user_id: params[:user_id])
+          else
+            @transactions =Transaction.all
+          end
+
+          if I18n.locale.to_s == "ar"
+            @transactions.each do |pr|
+              pr.description = pr.ar_description
+              pr.title = pr.ar_title
+            end
+          end
+
+          render json: {api_status: true, locale: I18n.locale.to_s, transactions: @transactions.as_json( :include => [:user] )}
+        rescue => e
+          render json: {api_status: false, locale: I18n.locale.to_s, transactions: @transactions}
+        end
+      end
+
+
+      def fetch_rewards
+        begin
+          if params[:user_id].present?
+            @rewards  = Reward.where(receiver_id: params[:user_id]).where(claim: true)
+          else
+            @rewards =Reward.all
+          end
+
+          if I18n.locale.to_s == "ar"
+            @rewards.each do |pr|
+              pr.description = pr.ar_description
+              pr.title = pr.ar_title
+            end
+          end
+
+          render json: {api_status: true, locale: I18n.locale.to_s, latest_rewards: @rewards.as_json( :include => [:user] )}
+        rescue => e
+          render json: {api_status: false, locale: I18n.locale.to_s, latest_rewards: @rewards}
         end
       end
 

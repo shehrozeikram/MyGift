@@ -4,6 +4,7 @@
 #
 #  id          :bigint           not null, primary key
 #  amount      :float
+#  claim       :boolean          default(FALSE)
 #  send_date   :date
 #  title       :string
 #  created_at  :datetime         not null
