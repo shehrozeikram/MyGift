@@ -56,6 +56,11 @@ Rails.application.routes.draw do
         get '/fetch_stores', to: 'stores#fetch_stores'
         post '/create_store_payment', to: 'stores#create_store_payment'
         post '/contact_us', to: 'stores#contact_us'
+        get '/fetch_notifications', to: 'stores#fetch_notifications'
+        post '/create_withdraw', to: 'stores#create_withdraw'
+        get '/pending_requests', to: 'stores#pending_requests'
+        get '/approved_requests', to: 'stores#approved_requests'
+        put '/update_request', to: 'stores#update_request'
       end
 
       resource :cards do

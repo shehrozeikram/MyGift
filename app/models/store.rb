@@ -14,4 +14,6 @@ class Store < ApplicationRecord
   mount_uploaders :attachments, AttachmentUploader
   serialize :attachments, JSON
   has_many :payment
+  has_many :notifications
+  has_many :withdraws
 end
