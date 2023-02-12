@@ -53,6 +53,8 @@ class User < ApplicationRecord
   has_many :rewards
   has_many :payment
   has_many :wallets
+  has_many :notifications
+  has_many :withdraws
   has_many :gifts
   has_many :contacts
   has_many :appointments
