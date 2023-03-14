@@ -1,10 +1,13 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+
   get 'shopping_carts/index'
   mount Sidekiq::Web => '/jobmonitor'
 
   devise_for :users, as: "web"
+
+
 
 
   get  '/users/:id/profile', to: 'users#profile', as: "my_profile"
@@ -47,6 +50,7 @@ Rails.application.routes.draw do
           end
         end
       end
+      
 
       resource :ad do
         get '/fetch_ads', to: 'ads#ads'
@@ -61,6 +65,7 @@ Rails.application.routes.draw do
         get '/pending_requests', to: 'stores#pending_requests'
         get '/approved_requests', to: 'stores#approved_requests'
         put '/update_request', to: 'stores#update_request'
+        get '/fetch_store_wallet', to: 'stores#fetch_store_wallet'
       end
 
       resource :cards do
@@ -70,7 +75,7 @@ Rails.application.routes.draw do
         get '/fetch_transactions', to: 'cards#fetch_transactions'
         get '/fetch_rewards', to: 'cards#fetch_rewards'
         get '/fetch_claim_rewards', to: 'cards#fetch_claim_rewards'
-
+        get '/fetch_user_wallet', to: 'cards#fetch_user_wallet'
       end
 
 

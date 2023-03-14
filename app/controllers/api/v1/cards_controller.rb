@@ -3,7 +3,30 @@ module Api
     class CardsController < Api::V1::ApiController
       helper_method :user
       skip_before_action :authenticate_user!
-      #Search List
+
+
+      def fetch_user_wallet
+        begin
+          if params[:user_id]
+            user = User.find(params[:user_id])
+            @user_balance = user.wallets.first.balance
+          else
+            @user_balance =User.all.order(username: :asc)
+          end
+
+          if I18n.locale.to_s == "ar"
+            @user_balance.each do |pr|
+              pr.description = pr.ar_description
+              pr.title = pr.ar_title
+            end
+          end
+
+          render json: {api_status: true, locale: I18n.locale.to_s, user_balance: @user_balance}
+        rescue => e
+          render json: {api_status: false, locale: I18n.locale.to_s, user_balance: @user_balance}
+        end
+      end
+
 
       def fetch_cards
         begin

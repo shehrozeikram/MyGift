@@ -27,6 +27,27 @@ module Api
         end
       end
 
+      def fetch_store_wallet
+        begin
+          if params[:store_id]
+            store =Store.find(params[:store_id])
+            @store_balance = store.balance
+          else
+            @store_balance =Store.all.order(store_name: :asc)
+          end
+
+          if I18n.locale.to_s == "ar"
+            @store_balance.each do |pr|
+              pr.description = pr.ar_description
+              pr.title = pr.ar_title
+            end
+          end
+
+          render json: {api_status: true, locale: I18n.locale.to_s, store_balance: @store_balance}
+        rescue => e
+          render json: {api_status: false, locale: I18n.locale.to_s, store_balance: @store_balance}
+        end
+      end
       def create_store_payment
         begin
           unless payment_params.present?
