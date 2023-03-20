@@ -19,6 +19,7 @@
 #  last_sign_in_ip         :string
 #  locale                  :string
 #  must_change_password    :boolean          default(FALSE)
+#  owner_name              :string
 #  provider                :string           default("email"), not null, indexed => [uid]
 #  remember_created_at     :datetime
 #  reset_password_sent_at  :datetime
@@ -26,6 +27,7 @@
 #  save_location_latitude  :float
 #  save_location_longitude :float
 #  sign_in_count           :integer          default(0)
+#  store_name              :string
 #  tokens                  :json             not null
 #  uid                     :string           not null, indexed => [provider]
 #  unconfirmed_email       :string
@@ -61,8 +63,13 @@ class User < ApplicationRecord
   has_many :camels
   # has_many :appointments, through:  :services
   has_many :services
+  validates :contact_number, uniqueness: true
+
+
   include DeviseTokenAuth::Concerns::User
   serialize :tokens
+
+
 
   validates :locale,
             inclusion: { in: I18n.available_locales.map(&:to_s), allow_blank: true },

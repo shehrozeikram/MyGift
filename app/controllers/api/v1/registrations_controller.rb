@@ -8,7 +8,7 @@ module Api
       private
 
       def sign_up_params
-        params.permit(:email, :password, :first_name, :last_name, :username,  :address, :locale, :avatar, :contact_number )
+        params.permit(:email, :password, :first_name, :last_name, :username,  :owner_name, :locale, :store_name, :contact_number )
       end
 
       def render_create_success
@@ -16,7 +16,8 @@ module Api
       end
 
       def render_create_error
-        raise ActiveRecord::RecordInvalid, @resource
+        render :error
+
       end
 
       def validate_post_data(which, message)

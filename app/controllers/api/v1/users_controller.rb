@@ -24,7 +24,7 @@ module Api
       end
 
       def user_params
-        params.permit(:email, :password, :first_name, :last_name, :username, :contact_number,  :address, :locale, :avatar, :save_location_latitude, :save_location_longitude)
+        params.permit(:email, :password, :first_name, :last_name, :username, :contact_number,  :store_name, :locale, :owner_name, :save_location_latitude, :save_location_longitude)
       end
     end
   end

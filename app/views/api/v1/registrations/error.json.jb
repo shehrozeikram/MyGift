@@ -1,0 +1,4 @@
+{
+  error:  @resource.errors,
+  locale: I18n.locale.to_s
+}
