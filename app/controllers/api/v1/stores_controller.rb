@@ -27,6 +27,26 @@ module Api
         end
       end
 
+      def fetch_store_id #For product search
+        begin
+          if params[:user_id]
+            @stores = Store.where(user_id: params[:user_id])
+          else
+            @stores =Store.all.order(store_name: :asc)
+          end
+
+          if I18n.locale.to_s == "ar"
+            @stores.each do |pr|
+              pr.description = pr.ar_description
+              pr.title = pr.ar_title
+            end
+          end
+
+          render json: {api_status: true, locale: I18n.locale.to_s, stores: @stores}
+        rescue => e
+          render json: {api_status: false, locale: I18n.locale.to_s, stores: @stores}
+        end
+      end
       def fetch_store_wallet
         begin
           if params[:store_id]
@@ -138,6 +158,13 @@ module Api
           if withdraw_params.present?
             @user = User.find(params[:user_id])
             @user_wallet = @user.wallets.first
+            if @user_wallet == nil
+              @user_wallet.create(
+                balance: 500000,
+                user_id: params[:user_id]
+              )
+              @user_wallet.save
+            end
             if @user_wallet.balance >= params[:total_payment].to_f
               @withdraw_payment = Withdraw.new(withdraw_params)
               if  @withdraw_payment.save!

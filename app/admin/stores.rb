@@ -5,7 +5,7 @@ ActiveAdmin.register Store do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :owner_name, :store_name, :balance, attachments: []
+  permit_params :owner_name, :store_name, :balance, :user_id, attachments: []
   #
   # or
   #
@@ -20,6 +20,7 @@ ActiveAdmin.register Store do
       f.input :owner_name
       f.input :store_name
       f.input :balance
+      f.input :user_id, as: :select,  collection:  User.all.collect{|cat| [cat.first_name, cat.id]}
       f.input :attachments, as: :file, input_html: { multiple: true }
     end
     f.actions
@@ -31,6 +32,9 @@ ActiveAdmin.register Store do
     column :owner_name
     column :store_name
     column :balance
+    column :user_id do |s|
+      s.user.first_name rescue ""
+    end
     column :attachments do |ad|
       ul do
         ad.attachments.each do |image|

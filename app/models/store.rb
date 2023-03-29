@@ -9,11 +9,16 @@
 #  store_name  :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  user_id     :integer
 #
 class Store < ApplicationRecord
+
   mount_uploaders :attachments, AttachmentUploader
   serialize :attachments, JSON
   has_many :payment
   has_many :notifications
   has_many :withdraws
+
+  belongs_to :user
+
 end

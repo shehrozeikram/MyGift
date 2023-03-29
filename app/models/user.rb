@@ -63,6 +63,7 @@ class User < ApplicationRecord
   has_many :camels
   # has_many :appointments, through:  :services
   has_many :services
+  has_many :stores
   validates :contact_number, uniqueness: true
 
 

@@ -58,6 +58,7 @@ Rails.application.routes.draw do
 
       resource :stores do
         get '/fetch_stores', to: 'stores#fetch_stores'
+        get '/fetch_store_id', to: 'stores#fetch_store_id'
         post '/create_store_payment', to: 'stores#create_store_payment'
         post '/contact_us', to: 'stores#contact_us'
         get '/fetch_notifications', to: 'stores#fetch_notifications'
