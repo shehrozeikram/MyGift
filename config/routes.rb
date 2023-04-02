@@ -57,7 +57,6 @@ Rails.application.routes.draw do
       end
 
       resource :stores do
-
         get '/fetch_stores', to: 'stores#fetch_stores'
         get '/fetch_store_id', to: 'stores#fetch_store_id'
         post '/create_store_payment', to: 'stores#create_store_payment'
@@ -68,6 +67,7 @@ Rails.application.routes.draw do
         get '/approved_requests', to: 'stores#approved_requests'
         put '/update_request', to: 'stores#update_request'
         get '/fetch_store_wallet', to: 'stores#fetch_store_wallet'
+        get '/fetch_store_balance', to: 'stores#fetch_store_balance'
       end
 
       resource :cards do

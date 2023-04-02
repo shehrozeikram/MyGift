@@ -18,6 +18,7 @@ class Store < ApplicationRecord
   has_many :payment
   has_many :notifications
   has_many :withdraws
+  has_many :receive_payments
 
   belongs_to :user
 

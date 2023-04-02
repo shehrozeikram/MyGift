@@ -4,6 +4,8 @@ module Api
       helper_method :user
       skip_before_action :authenticate_user!
 
+
+
       def fetch_stores #For product search
         begin
           if params[:q].present?
@@ -68,6 +70,32 @@ module Api
           render json: {api_status: false, locale: I18n.locale.to_s, store_balance: @store_balance}
         end
       end
+
+      def fetch_store_balance
+
+          if params[:store_id].present?
+            store = Store.find(params[:store_id])
+            if store.present?
+              @store_balance = store.receive_payments.where('created_at > ?', 30.days.ago)
+              if I18n.locale.to_s == "ar"
+                @store_balance.each do |pr|
+                  pr.description = pr.ar_description
+                  pr.title = pr.ar_title
+                end
+              end
+
+              render json: {api_status: true, locale: I18n.locale.to_s, store_balance_last_30_days: @store_balance}
+            else
+              render json: {api_status: false, locale: I18n.locale.to_s, error: 'Sorry we couldnot find any store against this id'}
+            end
+
+          else
+            render json: {api_status: false, locale: I18n.locale.to_s, error: 'Please provide store id'}
+          end
+
+
+
+      end
       def create_store_payment
         begin
           unless payment_params.present?
@@ -76,6 +104,40 @@ module Api
           if payment_params.present?
             @user = User.find(params[:user_id])
             @user_wallet = @user.wallets.first
+            if @user_wallet == nil
+              @user_wallet =  @user.wallets.create(
+                balance: 500000,
+                user_id: params[:user_id]
+              )
+              @user_wallet.save!
+              if @user_wallet.balance >= params[:amount].to_f
+                @payment = Payment.new(payment_params)
+                @payment.save!
+                new_price_of_wallet = @user_wallet.balance - @payment.amount
+                @user_wallet.balance = new_price_of_wallet
+                @user_wallet.save
+                @store_balance = @payment.store.balance
+                new_price_of_store_wallet = @store_balance + @payment.amount
+                @payment.store.balance = new_price_of_store_wallet
+                if @payment.store.save!
+                  @receive_payment =  ReceivePayment.new(
+                    amount: params[:amount],
+                    store_id: params[:store_id],
+                    date: @payment.created_at
+                  )
+                  @receive_payment.save!
+                  @notification = @payment.store.notifications.new(
+                    body: @user.first_name  + 'just pay at store' ,
+                    amount: params[:amount],
+                    store_id: params[:store_id],
+                    user_id: params[:user_id]
+                  )
+                  if @notification.save!
+                    render json: {api_status: true, locale: I18n.locale.to_s, payment: @payment.as_json( :include => [:user] ), user_wallet: @user_wallet, receive_payment: @receive_payment, notification: @notification }
+                  end
+                end
+              end
+              else
             if @user_wallet.balance >= params[:amount].to_f
               @payment = Payment.new(payment_params)
               @payment.save!
@@ -86,18 +148,25 @@ module Api
               new_price_of_store_wallet = @store_balance + @payment.amount
               @payment.store.balance = new_price_of_store_wallet
               if @payment.store.save!
-                @notification = @payment.store.notifications.new(
+                @receive_payment =  ReceivePayment.new(
+                  amount: params[:amount],
+                  store_id: params[:store_id],
+                  date: @payment.created_at
+                )
+                 @receive_payment.save!
+                 @notification = @payment.store.notifications.new(
                   body: @user.first_name  + 'just pay at store' ,
                   amount: params[:amount],
                   store_id: params[:store_id],
                   user_id: params[:user_id]
                 )
                 if @notification.save!
-                  render json: {api_status: true, locale: I18n.locale.to_s, payment: @payment.as_json( :include => [:user] ), user_wallet: @user_wallet, notification: @notification }
+                  render json: {api_status: true, locale: I18n.locale.to_s, payment: @payment.as_json( :include => [:user] ), user_wallet: @user_wallet, receive_payment: @receive_payment, notification: @notification }
                 end
               end
+            end
+            end
 
-              end
           else
             render json: {api_status: false, locale: I18n.locale.to_s, error: @payment.errors}
           end
@@ -158,13 +227,14 @@ module Api
           if withdraw_params.present?
             @user = User.find(params[:user_id])
             @user_wallet = @user.wallets.first
+
             if @user_wallet == nil
-              @user_wallet.create(
+              @user_wallet =  @user.wallets.create(
                 balance: 500000,
                 user_id: params[:user_id]
               )
-              @user_wallet.save
-            end
+              @user_wallet.save!
+
             if @user_wallet.balance >= params[:total_payment].to_f
               @withdraw_payment = Withdraw.new(withdraw_params)
               if  @withdraw_payment.save!
@@ -180,7 +250,26 @@ module Api
             else
               render json: {api_status: false, locale: I18n.locale.to_s, error: @withdraw_payment.errors}
             end
+
+            else
+              if @user_wallet.balance >= params[:total_payment].to_f
+                @withdraw_payment = Withdraw.new(withdraw_params)
+                if  @withdraw_payment.save!
+                  new_price_of_wallet = @user_wallet.balance - @withdraw_payment.total_payment
+                  @user_wallet.balance = new_price_of_wallet
+                  @user_wallet.save
+                  @store_balance = @withdraw_payment.store.balance
+                  new_price_of_store_wallet = @store_balance + @withdraw_payment.total_payment
+                  @withdraw_payment.store.balance = new_price_of_store_wallet
+                  @withdraw_payment.store.save!
+                  render json: {api_status: true, locale: I18n.locale.to_s, withdraw_payment: @withdraw_payment.as_json( :include => [:user] ), user_wallet: @user_wallet}
+                end
+              else
+                render json: {api_status: false, locale: I18n.locale.to_s, error: @withdraw_payment.errors}
+              end
+
             end
+          end
         rescue => e
           render json: {api_status: false, locale: I18n.locale.to_s, error: @withdraw_payment.errors.full_messages}
         end
@@ -264,6 +353,10 @@ module Api
       end
       def payment_params
         params.permit(:amount, :user_id, :store_id)
+      end
+
+      def receive_payment_params
+        params.permit(:amount, :store_id, :date)
       end
 
       def user
