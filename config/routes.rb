@@ -57,6 +57,7 @@ Rails.application.routes.draw do
       end
 
       resource :stores do
+
         get '/fetch_stores', to: 'stores#fetch_stores'
         get '/fetch_store_id', to: 'stores#fetch_store_id'
         post '/create_store_payment', to: 'stores#create_store_payment'
@@ -83,6 +84,7 @@ Rails.application.routes.draw do
       resource :business do
         get '/show_business', to: 'businesses#show_business'
         get '/fetch_business', to: 'businesses#fetch_business'
+        get '/fetch_user_list', to: 'businesses#fetch_user_list'
       end
 
       resource :order do

@@ -30,7 +30,25 @@ module Api
       end
 
 
+      def fetch_user_list
+        @users_list = User.all
+        if @users_list.present?
+          if params[:q].present?
+            @users = @users_list.where("LOWER(first_name) LIKE LOWER(?)", "%#{params[:q]}%")
 
+            if I18n.locale.to_s == "ar"
+              @business.description = @business.ar_description
+              @business.title = @business.ar_title
+            end
+
+            render json: {api_status: true , locale: I18n.locale.to_s, users_list: @users_list, search_users_result: @users}
+          else
+            render json: {api_status: true, locale: I18n.locale.to_s, note: 'params has no value please put value to impliment search user ', users_list: @users_list }
+          end
+        else
+          render json: {api_status: false, locale: I18n.locale.to_s, error: 'Sorry user is not present'}
+        end
+      end
       def show_business
         begin
           unless params[:id].present?
