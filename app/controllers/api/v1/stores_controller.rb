@@ -6,6 +6,26 @@ module Api
 
 
 
+      def create
+        begin
+          unless store_params.present?
+            return display_error('All params are not present')
+          end
+          if store_params.present?
+            @store = Store.new(store_params)
+            if @store.save
+              render json: {api_status: true, locale: I18n.locale.to_s, store: @store}
+            else
+              render json: {api_status: false, locale: I18n.locale.to_s, error: @store.errors}
+            end
+          else
+            render json: {api_status: false, locale: I18n.locale.to_s, error: @store.errors}
+          end
+        rescue => e
+          render json: {api_status: false, locale: I18n.locale.to_s, error: @store.errors}
+        end
+      end
+
       def fetch_stores #For product search
         begin
           if params[:q].present?
@@ -343,7 +363,38 @@ module Api
         end
       end
 
+      def login_store
+        begin
+          unless store_params.present?
+            return display_error('All params are not present')
+          end
+          if store_params.present?
+            @store = Store.where(contact_number: params[:contact_number]).last
+            if @store == nil
+              render json: {api_status: false, locale: I18n.locale.to_s, error: 'Sorry contact number is incorrect'}
+            else
+              valid_password = @store.valid_password?(store_params[:password])
+              if valid_password
+                render json: {api_status: true, locale: I18n.locale.to_s, store: @store}
+              else
+                render json: {api_status: false, locale: I18n.locale.to_s, error: 'Sorry password is incorrect'}
+              end
+            end
+
+          else
+            render json: {api_status: false, locale: I18n.locale.to_s, error: @store.errors}
+          end
+        rescue => e
+          render json: {api_status: false, locale: I18n.locale.to_s, error: @store.errors}
+        end
+      end
+
+
       private
+
+      def store_params
+        params.permit( :owner_name, :email, :password, :contact_number, :store_name, :balance, :attachments, :user_id )
+      end
 
       def withdraw_params
         params.permit( :card_holder_name, :iban_number, :billing_address, :cvc, :expire_date, :total_payment, :user_id, :store_id )
