@@ -69,7 +69,7 @@ Rails.application.routes.draw do
       resource :stores do
 
         get '/login_store', to: 'stores#login_store'
-        post '/create_store', to: 'stores#create_store'
+        # post '/create_store', to: 'stores#create_store'
         get '/fetch_stores', to: 'stores#fetch_stores'
         get '/fetch_store_id', to: 'stores#fetch_store_id'
         post '/create_store_payment', to: 'stores#create_store_payment'
