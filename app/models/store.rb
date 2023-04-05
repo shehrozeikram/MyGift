@@ -20,8 +20,10 @@ class Store < ApplicationRecord
   has_many :withdraws
   has_many :receive_payments
 
+
   belongs_to :user
 
   validates :store_name, :uniqueness => true
-
 end
+
+

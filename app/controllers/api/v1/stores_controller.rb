@@ -26,6 +26,7 @@ module Api
         end
       end
 
+
       def fetch_stores #For product search
         begin
           if params[:q].present?
