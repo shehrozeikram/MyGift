@@ -6,7 +6,7 @@ module Api
 
 
 
-      def create
+      def create_store
         begin
           unless store_params.present?
             return display_error('All params are not present')
@@ -14,7 +14,7 @@ module Api
           if store_params.present?
             @store = Store.new(store_params)
             if @store.save
-              render json: {api_status: true, locale: I18n.locale.to_s, store: @store}
+              render json: {api_status: true, locale: I18n.locale.to_s, store: @store.as_json( :include => [:user] )}
             else
               render json: {api_status: false, locale: I18n.locale.to_s, error: @store.errors}
             end
@@ -393,7 +393,7 @@ module Api
       private
 
       def store_params
-        params.permit( :owner_name, :email, :password, :contact_number, :store_name, :balance, :attachments, :user_id )
+        params.permit( :owner_name, :store_name, :balance, :attachments, :user_id )
       end
 
       def withdraw_params

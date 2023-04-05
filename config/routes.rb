@@ -40,12 +40,12 @@ Rails.application.routes.draw do
   }, skip: %i[omniauth_callbacks registrations]
 
 
-  mount_devise_token_auth_for 'Store', at: '/api/v1/stores', controllers: {
-    stores: 'api/v1/stores',
-    sessions: 'api/v1/sessions',
-    passwords: 'api/v1/passwords',
-    token_validations: 'api/v1/token_validations'
-  }, skip: %i[omniauth_callbacks registrations]
+  # mount_devise_token_auth_for 'Store', at: '/api/v1/stores', controllers: {
+  #   stores: 'api/v1/stores',
+  #   sessions: 'api/v1/sessions',
+  #   passwords: 'api/v1/passwords',
+  #   token_validations: 'api/v1/token_validations'
+  # }, skip: %i[omniauth_callbacks registrations]
 
 
   namespace :api, defaults: { format: :json } do
@@ -69,7 +69,7 @@ Rails.application.routes.draw do
       resource :stores do
 
         get '/login_store', to: 'stores#login_store'
-        # post '/create_store', to: 'stores#create_store'
+        post '/create_store', to: 'stores#create_store'
         get '/fetch_stores', to: 'stores#fetch_stores'
         get '/fetch_store_id', to: 'stores#fetch_store_id'
         post '/create_store_payment', to: 'stores#create_store_payment'
