@@ -2,7 +2,6 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
-  # devise_for :stores
 
   get 'shopping_carts/index'
   mount Sidekiq::Web => '/jobmonitor'
@@ -39,13 +38,6 @@ Rails.application.routes.draw do
     token_validations: 'api/v1/token_validations'
   }, skip: %i[omniauth_callbacks registrations]
 
-
-  # mount_devise_token_auth_for 'Store', at: '/api/v1/stores', controllers: {
-  #   stores: 'api/v1/stores',
-  #   sessions: 'api/v1/sessions',
-  #   passwords: 'api/v1/passwords',
-  #   token_validations: 'api/v1/token_validations'
-  # }, skip: %i[omniauth_callbacks registrations]
 
 
   namespace :api, defaults: { format: :json } do
