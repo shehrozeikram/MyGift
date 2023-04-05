@@ -7,6 +7,7 @@ class CreateStores < ActiveRecord::Migration[6.1]
       t.integer :user_id
       t.text :attachments
 
+
       t.timestamps
     end
   end
