@@ -24,5 +24,4 @@ class Store < ApplicationRecord
 
   validates :store_name, :uniqueness => true
 
-
 end
