@@ -394,7 +394,7 @@ module Api
       private
 
       def store_params
-        params.permit( :owner_name, :store_name, :balance, :attachments, :user_id )
+        params.permit( :owner_name, :store_name, :balance, :user_id, attachments: [] )
       end
 
       def withdraw_params
